@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       <context:component-scan base-package="cz.moskovcak.udpproxy"/>
+
+        <bean name="UdpProxyService" class="cz.moskovcak.udpproxy.UdpProxyService">
+            <property name="server" ref="StreamServer" />
+        </bean>
+
+        <bean name="StreamServer" class="cz.moskovcak.udpproxy.StreamServer">
+            <constructor-arg value="192.168.1.148" />
+            <constructor-arg value="8888" />
+            <property name="channels">
+                <list>
+                    <ref bean="Ct1" />
+                </list>
+            </property>
+        </bean>
+
+        <bean name="Ct1" class="cz.moskovcak.udpproxy.Channel">
+            <constructor-arg value="239.1.1.42" />
+            <constructor-arg value="11111" />
+        </bean>
+</beans>
